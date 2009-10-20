@@ -7,7 +7,7 @@ use base qw(Module::Install::Base);
 use Config;
 use File::Spec;
 
-my $installer = q{$(NOECHO) $(ABSPERL) -e 'use File::Copy; use File::Path qw/make_path/; use File::Basename; make_path(dirname($$ARGV[1])); File::Copy::copy($$ARGV[0], $$ARGV[1]) or die qq[Copy failed: $$!]'};
+my $installer = q{$(NOECHO) $(ABSPERL) -e 'use File::Copy; use File::Path qw/mkpath/; use File::Basename; mkpath(dirname($$ARGV[1])); File::Copy::copy($$ARGV[0], $$ARGV[1]) or die qq[Copy failed: $$!]'};
 
 sub clib_header {
     my ($self, $filename) = @_;
