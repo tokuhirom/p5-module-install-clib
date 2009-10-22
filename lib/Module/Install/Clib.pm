@@ -18,7 +18,7 @@ sub clib_header {
     my $dst = File::Spec->catfile($dstdir, $filename);
     $self->postamble(<<"END_MAKEFILE");
 config ::
-\t\t\$(ECHO) Installing $dst
+\t\t\$(NOECHO) \$(ECHO) Installing $dst
 \t\t$mkpath $dstdir
 \t\t$cp "$filename" "$dst"
 
@@ -33,7 +33,7 @@ sub clib_library {
     my $dst = File::Spec->catfile($dstdir, $filename);
     $self->postamble(<<"END_MAKEFILE");
 config ::
-\t\t\$(ECHO) Installing $dst
+\t\t\$(NOECHO) \$(ECHO) Installing $dst
 \t\t$mkpath $dstdir
 \t\t$cp "$filename" "$dst"
 
