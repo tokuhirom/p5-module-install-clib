@@ -7,17 +7,20 @@ use base qw(Module::Install::Base);
 use Config;
 use File::Spec;
 
-my $installer = q{$(NOECHO) $(ABSPERL) -e 'use File::Copy; use File::Path qw/mkpath/; use File::Basename; mkpath(dirname($$ARGV[1])); File::Copy::copy($$ARGV[0], $$ARGV[1]) or die qq[Copy failed: $$!]'};
+my $mkpath = q{$(NOECHO) $(ABSPERL) -MExtUtils::Command -e mkpath -- };
+my $cp     = q{$(NOECHO) $(ABSPERL) -MExtUtils::Command -e cp     -- };
 
 sub clib_header {
     my ($self, $filename) = @_;
     (my $distname = $self->name) =~ s/Clib-//;
 
-    my $dst = File::Spec->catfile('$(INSTALLARCHLIB)', 'auto', 'Clib', 'include', $distname, $filename);
+    my $dstdir = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'include', $distname);
+    my $dst = File::Spec->catfile($dstdir, $filename);
     $self->postamble(<<"END_MAKEFILE");
 config ::
 \t\t\$(ECHO) Installing $dst
-\t\t$installer "$filename" $dst
+\t\t$mkpath $dstdir
+\t\t$cp "$filename" "$dst"
 
 END_MAKEFILE
 }
@@ -26,11 +29,13 @@ sub clib_library {
     my ($self, $filename) = @_;
     (my $distname = $self->name) =~ s/Clib-//;
 
-    my $dst = File::Spec->catfile('$(INSTALLARCHLIB)', 'auto', 'Clib', 'lib', $filename);
+    my $dstdir = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'lib');
+    my $dst = File::Spec->catfile($dstdir, $filename);
     $self->postamble(<<"END_MAKEFILE");
 config ::
 \t\t\$(ECHO) Installing $dst
-\t\t$installer "$filename" $dst
+\t\t$mkpath $dstdir
+\t\t$cp "$filename" "$dst"
 
 END_MAKEFILE
 }
