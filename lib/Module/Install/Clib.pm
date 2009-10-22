@@ -38,8 +38,8 @@ END_MAKEFILE
 sub clib_setup {
     my ($self) = @_;
     my @dirs = map { File::Spec->catfile($_, qw/auto Clib/) } grep /$Config{archname}/, @INC;
-    my @libs = map { File::Spec->catfile($_, 'lib') }     @dirs;
-    my @incs = map { File::Spec->catfile($_, 'include') } @dirs;
+    my @libs = grep { -d $_ } map { File::Spec->catfile($_, 'lib') }     @dirs;
+    my @incs = grep { -d $_ } map { File::Spec->catfile($_, 'include') } @dirs;
     $self->cc_append_to_inc(@incs);
     $self->cc_append_to_libs(@libs);
 }
