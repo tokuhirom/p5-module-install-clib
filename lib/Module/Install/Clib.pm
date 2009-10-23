@@ -7,9 +7,6 @@ use base qw(Module::Install::Base);
 use Config;
 use File::Spec;
 
-my $mkpath = q{$(NOECHO) $(ABSPERL) -MExtUtils::Command -e mkpath -- };
-my $cp     = q{$(NOECHO) $(ABSPERL) -MExtUtils::Command -e cp     -- };
-
 sub clib_header {
     my ($self, $filename) = @_;
     (my $distname = $self->name) =~ s/Clib-//;
@@ -18,9 +15,9 @@ sub clib_header {
     my $dst = File::Spec->catfile($dstdir, $filename);
     $self->postamble(<<"END_MAKEFILE");
 config ::
-\t\t\$(NOECHO) \$(ECHO) Installing $dst
-\t\t$mkpath $dstdir
-\t\t$cp "$filename" "$dst"
+\t\t\$(NOECHO) \$(ECHO)   Installing $dst
+\t\t\$(NOECHO) \$(MKPATH) $dstdir
+\t\t\$(NOECHO) \$(CP)     "$filename" "$dst"
 
 END_MAKEFILE
 }
@@ -33,9 +30,9 @@ sub clib_library {
     my $dst = File::Spec->catfile($dstdir, $filename);
     $self->postamble(<<"END_MAKEFILE");
 config ::
-\t\t\$(NOECHO) \$(ECHO) Installing $dst
-\t\t$mkpath $dstdir
-\t\t$cp "$filename" "$dst"
+\t\t\$(NOECHO) \$(ECHO)   Installing $dst
+\t\t\$(NOECHO) \$(MKPATH) $dstdir
+\t\t\$(NOECHO) \$(CP)     "$filename" "$dst"
 
 END_MAKEFILE
 }

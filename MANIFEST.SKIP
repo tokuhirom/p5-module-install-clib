@@ -18,3 +18,5 @@
 ^[^/]+\.pl$
 ^\.shipit$
 \.git/
+^t/010_simple/inst/auto/
+^t/010_simple/inst/perllocal.pod$
