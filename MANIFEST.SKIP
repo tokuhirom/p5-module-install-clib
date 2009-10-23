@@ -20,3 +20,10 @@
 \.git/
 ^t/010_simple/inst/auto/
 ^t/010_simple/inst/perllocal.pod$
+\.so$
+\.exists$
+/blib/
+^t/010_simple/inc/
+^t/010_simple/Makefile$
+^t/010_simple/META.yml$
+^t/010_simple/pm_to_blib$

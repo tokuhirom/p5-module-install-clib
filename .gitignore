@@ -9,3 +9,4 @@ Makefile.old
 nytprof.out
 t/010_simple/inst/auto/
 t/010_simple/inst/perllocal.pod
+*.so

@@ -1,4 +1,9 @@
 Revision history for Perl extension Module::Install::Clib
 
+0.02
+
+        - simplified
+        - added test cases
+
 0.01    Tue Oct 20 13:59:42 2009
         - original version
