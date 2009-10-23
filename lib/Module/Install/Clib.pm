@@ -20,7 +20,7 @@ sub clib_header {
     my $dstdir = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'include', $distname);
     my $dst = File::Spec->catfile($dstdir, $filename);
 $self->postamble(<<"END_MAKEFILE");
-config ::
+install ::
 \t\t\$(NOECHO) \$(ECHO) Installing $dst
 \t\t\$(NOECHO) \$(MKPATH) "$dstdir"
 \t\t\$(NOECHO) \$(CP) "$filename" "$dstdir"
@@ -39,7 +39,7 @@ sub clib_library {
     my $dstdir = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'lib');
     my $dst = File::Spec->catfile($dstdir, $filename);
 $self->postamble(<<"END_MAKEFILE");
-config ::
+install ::
 \t\t\$(NOECHO) \$(ECHO) Installing $dst
 \t\t\$(NOECHO) \$(MKPATH) "$dstdir"
 \t\t\$(NOECHO) \$(CP) "$filename" "$dstdir"
@@ -55,7 +55,7 @@ sub clib_setup {
     my @incs = grep { -d $_ } map { File::Spec->catfile($_, 'include') } @dirs;
 
     my $incs = $self->makemaker_args->{INC} || '';
-    $self->makemaker_args->{INC} = join(" ", map { "-I$_" } @incs) . ' ' . $incs;
+    $self->makemaker_args->{INC} = "-I\$(INST_ARCHLIB)/auto/Clib/include/ " . join(" ", map { "-I$_" } @incs) . ' ' . $incs;
 
     my $libs = $self->makemaker_args->{LIBS} || '';
     $self->makemaker_args->{LIBS} = join(" ", map { "-L$_" } @libs) . ' ' . $libs;
