@@ -23,7 +23,7 @@
 \.so$
 \.exists$
 /blib/
-^t/010_simple/inc/
-^t/010_simple/Makefile$
-^t/010_simple/META.yml$
-^t/010_simple/pm_to_blib$
+^t/0.+/inc/
+^t/0.+/Makefile$
+^t/0.+/META.yml$
+^t/0.+/pm_to_blib$

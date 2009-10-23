@@ -1,7 +1,7 @@
 package Module::Install::Clib;
 use strict;
 use warnings;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 use 5.008_001;
 use base qw(Module::Install::Base);
 use Config;

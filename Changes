@@ -1,5 +1,13 @@
 Revision history for Perl extension Module::Install::Clib
 
+0.03
+
+        - hook at 'install ::'
+        - added -Iblib/arch/(ry
+        - remove depency(M::I::XSUtil)
+        - fixed library path bug
+        - added blib support
+
 0.02
 
         - simplified
