@@ -11,9 +11,21 @@ sub clib_header {
     my ($self, $filename) = @_;
     (my $distname = $self->name) =~ s/Clib-//;
 
+    # for blib
     my $pm = $self->makemaker_args->{PM} || {};
-    $pm->{$filename} = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'include', $distname, $filename);
+    $pm->{$filename} = File::Spec->catfile('$(INST_ARCHLIB)', 'auto', 'Clib', 'include', $distname, $filename);
     $self->makemaker_args(PM => $pm);
+
+    # for installing
+    my $dstdir = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'include', $distname);
+    my $dst = File::Spec->catfile($dstdir, $filename);
+$self->postamble(<<"END_MAKEFILE");
+config ::
+\t\t\$(NOECHO) \$(ECHO) Installing $dst
+\t\t\$(NOECHO) \$(MKPATH) "$dstdir"
+\t\t\$(NOECHO) \$(CP) "$filename" "$dstdir"
+
+END_MAKEFILE
 }
 
 sub clib_library {
@@ -21,8 +33,18 @@ sub clib_library {
     (my $distname = $self->name) =~ s/Clib-//;
 
     my $pm = $self->makemaker_args->{PM} || {};
-    $pm->{$filename} = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'lib', $filename);
+    $pm->{$filename} = File::Spec->catfile('$(INST_ARCHLIB)', 'auto', 'Clib', 'lib', $filename);
     $self->makemaker_args(PM => $pm);
+
+    my $dstdir = File::Spec->catdir('$(INSTALLARCHLIB)', 'auto', 'Clib', 'lib');
+    my $dst = File::Spec->catfile($dstdir, $filename);
+$self->postamble(<<"END_MAKEFILE");
+config ::
+\t\t\$(NOECHO) \$(ECHO) Installing $dst
+\t\t\$(NOECHO) \$(MKPATH) "$dstdir"
+\t\t\$(NOECHO) \$(CP) "$filename" "$dstdir"
+
+END_MAKEFILE
 }
 
 sub clib_setup {
