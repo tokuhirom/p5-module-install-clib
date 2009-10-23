@@ -49,11 +49,16 @@ END_MAKEFILE
 
 sub clib_setup {
     my ($self) = @_;
-    my @dirs = map { File::Spec->catfile($_, qw/auto Clib/) } grep /$Config{archname}/, @INC;
+    my %uniq;
+    my @dirs = grep { $uniq{$_}++ == 0 } map { File::Spec->catfile($_, qw/auto Clib/) } grep /$Config{archname}/, @INC;
     my @libs = grep { -d $_ } map { File::Spec->catfile($_, 'lib') }     @dirs;
     my @incs = grep { -d $_ } map { File::Spec->catfile($_, 'include') } @dirs;
-    $self->cc_append_to_inc(@incs);
-    $self->cc_append_to_libs(@libs);
+
+    my $incs = $self->makemaker_args->{INC} || '';
+    $self->makemaker_args->{INC} = join(" ", map { "-I$_" } @incs) . ' ' . $incs;
+
+    my $libs = $self->makemaker_args->{LIBS} || '';
+    $self->makemaker_args->{LIBS} = join(" ", map { "-L$_" } @libs) . ' ' . $libs;
 }
 
 1;

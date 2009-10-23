@@ -3,7 +3,6 @@ name 'Module-Install-Clib';
 all_from 'lib/Module/Install/Clib.pm';
 
 requires 'Module::Install';
-requires 'Module::Install::XSUtil';
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
 author_tests 'xt';
