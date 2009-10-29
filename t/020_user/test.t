@@ -12,7 +12,7 @@ for my $key (qw/INC LIBS/) {
     my @stuff = split /\s+/, $1;
     my %uniq;
     map { $uniq{$_}++ } @stuff;
-    is scalar(grep { $uniq{$_} > 1 } keys %uniq), 0, 'whols keys are uniq';
+    is scalar(grep { $uniq{$_} > 1 } keys %uniq), 0, 'whole keys are uniq';
 }
 
 done_testing;
