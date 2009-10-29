@@ -14,7 +14,7 @@ sub clib_header {
     my $blib_dir = File::Spec->catfile('$(INST_ARCHLIB)', 'auto', 'Clib', 'include', $distname);
     my $blib_dst = File::Spec->catdir($blib_dir, $filename);
 $self->postamble(<<"END_MAKEFILE");
-config ::
+config :: $filename
 \t\t\$(NOECHO) \$(ECHO) copy $filename to $blib_dst
 \t\t\$(NOECHO) \$(MKPATH) $blib_dir
 \t\t\$(NOECHO) \$(CP) $filename $blib_dst
@@ -29,7 +29,7 @@ sub clib_library {
     my $blib_dir = File::Spec->catdir('$(INST_ARCHLIB)', 'auto', 'Clib', 'lib');
     my $blib_dst = File::Spec->catfile($blib_dir, $filename);
 $self->postamble(<<"END_MAKEFILE");
-config ::
+config :: $filename
 \t\t\$(NOECHO) \$(ECHO) copy $filename to $blib_dst
 \t\t\$(NOECHO) \$(MKPATH) $blib_dir
 \t\t\$(NOECHO) \$(CP) $filename $blib_dst
