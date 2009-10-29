@@ -27,3 +27,4 @@
 ^t/0.+/Makefile$
 ^t/0.+/META.yml$
 ^t/0.+/pm_to_blib$
+^t/010_simple/inst/Foo\.pm$

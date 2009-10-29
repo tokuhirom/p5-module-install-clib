@@ -10,3 +10,4 @@ nytprof.out
 t/010_simple/inst/auto/
 t/010_simple/inst/perllocal.pod
 *.so
+t/010_simple/inst/Foo.pm

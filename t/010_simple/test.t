@@ -14,11 +14,14 @@ run_makefile_pl;
 run_make();
 ok -f 'blib/arch/auto/Clib/include/test/foo.h';
 ok -f 'blib/arch/auto/Clib/lib/bar.so';
+ok -f 'blib/lib/Foo.pm';
 
+ok !-d 'inst';
 run_make('install');
 ok -f './inst/auto/Clib/include/test/foo.h';
 is slurp('./inst/auto/Clib/include/test/foo.h'), "THIS IS TEST THING(foo.h)\n";
 is slurp('./inst/auto/Clib/lib/bar.so'), 'this is bar.so';
+is slurp('./inst/Foo.pm'), "package Foo;\n1;\n";
 done_testing;
 
 sub slurp {

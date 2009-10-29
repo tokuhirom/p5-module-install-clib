@@ -6,7 +6,9 @@ clib_header  'foo.h';
 clib_library 'bar.so';
 
 makemaker_args(
-    INSTALLARCHLIB => './inst/',
+    INSTALLARCHLIB    => './inst/',
+    INSTALLSITEARCH   => './inst/',
+    INSTALLVENDORARCH => './inst/',
 );
 
 WriteAll;
