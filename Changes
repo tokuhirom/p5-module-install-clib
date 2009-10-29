@@ -1,5 +1,9 @@
 Revision history for Perl extension Module::Install::Clib
 
+0.04
+
+        - fixed bug around installing *.pm modules
+
 0.03
 
         - hook at 'install ::'
